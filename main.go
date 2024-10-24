@@ -3,15 +3,17 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"go-api/models"
 	"sort"
+
+	"github.com/pchaves21/star-wars/models"
+	"github.com/pchaves21/star-wars/services"
 )
 
 func createResponse() (models.Response, error) {
 	response := models.Response{}
 	planetMap := make(map[string]string)
 
-	planets, err := services.getPlanets()
+	planets, err := services.GetPlanets()
 	if err != nil {
 		return response, err
 	}
@@ -20,7 +22,7 @@ func createResponse() (models.Response, error) {
 		planetMap[planet.Url] = planet.Name
 	}
 
-	films, err := services.getFilms()
+	films, err := services.GetFilms()
 	if err != nil {
 		return response, err
 	}

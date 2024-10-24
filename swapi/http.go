@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/pchaves21/star-wars/models"
 )
 
 const API_URL = "https://swapi.dev/api/"
 
-func getResponse(extension string) (*BaseResponse, error) {
+func GetResponse(extension string) (*models.BaseResponse, error) {
 	resp, err := http.Get(API_URL + extension)
 	if err != nil {
 		fmt.Println("Error making the request:", err)
@@ -21,7 +23,7 @@ func getResponse(extension string) (*BaseResponse, error) {
 		return nil, fmt.Errorf("received status code %d", resp.StatusCode)
 	}
 
-	var response BaseResponse
+	var response models.BaseResponse
 	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
 		return nil, err
 	}

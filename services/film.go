@@ -3,17 +3,20 @@ package services
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/pchaves21/star-wars/models"
+	"github.com/pchaves21/star-wars/swapi"
 )
 
-func getFilms() ([]Film, error) {
-	response, err := getResponse("films")
+func GetFilms() ([]models.Film, error) {
+	response, err := swapi.GetResponse("films")
 	if err != nil {
 		return nil, err
 	}
 
-	var films []Film
+	var films []models.Film
 	for _, raw := range response.Results {
-		var film Film
+		var film models.Film
 		if err := json.Unmarshal(raw, &film); err == nil {
 			films = append(films, film)
 		} else {
